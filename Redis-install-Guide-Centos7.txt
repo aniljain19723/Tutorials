@@ -1,0 +1,64 @@
+#####Redis Installation guide on Centos7 #########
+#####
+##### Installation from yum ###########
+
+//On centos7 (By default version is 3)//
+#sudo yum install epel-release
+#sudo yum install redis
+#sudo systemctl start redis
+#sudo systemctl enable redis
+
+For Latest version of Redis Go with Remi repo
+#sudo yum -y update
+#sudo yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+#sudo yum --enablerepo=remi install redis
+
+##### Install from Source ##########
+1) Install dependencies
+#yum install wget gcc make
+
+2) Download the Redis stable release
+#wget  http://download.redis.io/releases/redis-5.0.0.tar.gz
+#tar -xvzf  redis-5.0.0.tar.gz
+#cd  redis-5.0.0
+#make
+#make install
+#mkdir /etc/redis
+#mkdir -p /var/redis
+#cp redis.conf /etc/redis/
+
+3) Add the below configuration in redis.conf configuration file
+#vim /etc/redis/redis.conf
+bind 0.0.0.0
+logfile "/var/log/redis.log"
+dir /var/redis/
+
+4) Create Service file and add the following lines
+#vim /etc/systemd/system/redis.service
+
+[Unit]
+Description=Redis In-Memory Data Store
+After=network.target
+[Service]
+User=root
+Group=root
+ExecStart=/usr/local/bin/redis-server /etc/redis/redis.conf
+ExecStop=/usr/local/bin/redis-cli shutdown
+Restart=always
+Type=Forking
+[Install]
+WantedBy=multi-user.target
+
+#sudo systemctl start redis
+sudo systemctl status redis
+
+5) create the link of Redis binary
+#ln -s /usr/local/bin/redis-cli  /usr/bin/redis-cli
+
+6) verify the installation
+#redis-cli  ping
+PONG
+
+
+
+
