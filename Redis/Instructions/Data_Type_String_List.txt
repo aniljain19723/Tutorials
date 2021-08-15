@@ -1,0 +1,83 @@
+#####################################################
+#      Redis Data type Tutorial instructions       #												
+#####################################################
+
+####### String Data Type ############################
+#
+# Create the Key with the name of Name and Value <any Random value>
+
+% redis-cli SET <key-name> <key-value>
+eg. 
+% redis-cli SET Name anil
+
+# Get the key 
+
+% redis-cli SET <key-name> 
+eg.
+% redis-cli SET Name
+
+# check the type of Key
+% redis-cli TYPE <key-name> 
+eg. 
+% redis-cli TYPE Name
+
+# Delete the key
+% redis-cli DEL <key-name> 
+eg. 
+% redis-cli DEL Name
+
+####### List Data Type ############################
+#
+# create a list with data [push the data from head to tail]
+% lpush training ML Kafka Redis cloud-computing
+
+#check the position of index
+% lindex training 2
+
+#add any new element 
+%lpush training terraform      [push the data from head to tail]
+
+# Push the element from tail to head 
+%rpush training ansible        [push the data from tail to head]
+
+# Select the range in a List
+%lrange  <listName>    <starting range>  <ending of range>
+eg. 
+%lrange training  0 -1          [First element from head to last element]
+%lrange training  2 3           [3rd element from head to 4th element from head]
+lrange training   1 -2          [2nd element from the head to second element from the tail]
+
+
+# Remove the elements from the list
+% lrem  <List Name>  <starting index>  <ending Index>
+0 = exactly match
+>0 remove the head
+0< remove from the tail
+
+Push some data to test lrem 
+% lpush  training datascience datascience data science datascience
+% rpush  training datascience datascience datascience datascience
+eg.
+% lrem training 0 datascience     [Will remove  all elements named with datascience]
+% lrem training -2 datascience    [Will remove  2 elements named with datascience from the tail in list]
+% lrem training  1 datascience    [Will remove  1 element named with datascience from the head in list]
+
+# To set a value in the list with index
+% lset <List Name> <index> <Value>
+eg.
+% lset training 5 datascience     [Will update the value of 6 index in the list]
+
+# get and remove the element from the list 
+% lpop <list name>  [Will return the first element from the head and remove it]
+% rpop <list name>  [Will return the last element from the list and remove it]
+
+# Get and Remove the element along with the timeout value 
+% blpop <List name> <timeout in seconds>
+eg. 
+% blpop training 10 						[Will return the first element from the head and block the clients for specified timeout]
+% blpop training 10							[Will return the first element from the tail and block the clients for specified timeout]
+
+
+# Insert an element before and after in the list
+% linsert training  before datascience  Redis-new [Will insert a new element in the list with name of Redis-new before datascience]
+% linsert training  after datascience  Redis-new [Will insert a new element in the list with name of Redis-new after datascience]
