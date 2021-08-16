@@ -26,6 +26,20 @@ eg.
 eg. 
 % redis-cli DEL Name
 
+# Set multiple Keys as string 
+% MSET <key1> <value1> <key2> <value2>
+
+# Get multiple string keys
+% MGET <key1> <key2>
+
+# Append a string 
+% APPEND <key> <value to be append>
+
+# set a string key with TTL 
+% SETEX <key> <timeout value>
+
+
+
 ####### List Data Type ############################
 #
 # create a list with data [push the data from head to tail]
