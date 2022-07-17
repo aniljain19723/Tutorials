@@ -38,6 +38,9 @@ eg.
 # set a string key with TTL 
 % SETEX <key> <timeout value>
 
+# set expiry on existing key
+% EXPIRE <Key> <ttl in seconds>
+
 
 
 ####### List Data Type ############################
